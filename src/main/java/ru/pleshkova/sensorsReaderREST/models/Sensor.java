@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "sensors")
 @NoArgsConstructor
-public class Sensor {
+public class Sensor {  // TODO ADDED UNIQUE VALIDATION
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,6 @@ public class Sensor {
     @Setter
     private Long id;
 
-    @NotEmpty(message = "can't be empty")
     @Size(min = 3, max = 30, message = "should be between 3 and 30 characters")
     @Getter
     @Setter

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pleshkova.sensorsReaderREST.models.Sensor;
 import ru.pleshkova.sensorsReaderREST.repositories.SensorRepository;
+import ru.pleshkova.sensorsReaderREST.util.NotFoundSensorException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -23,7 +25,11 @@ public class SensorService {
     }
 
     public Sensor findById(long id){
-        return sensorRepository.findById(id).orElse(null);
+        return sensorRepository.findById(id).orElseThrow(NotFoundSensorException::new);
+    }
+
+    public Sensor findByName(String name){
+        return sensorRepository.findByName(name).orElseThrow(NotFoundSensorException::new);
     }
 
     @Transactional

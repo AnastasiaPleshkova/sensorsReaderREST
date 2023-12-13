@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class SensorDto {
-    @NotEmpty(message = "can't be empty")
-    @Size(min = 2, max = 30, message = "should be between 2 and 30 characters")
+
+    @Size(min = 3, max = 30, message = "should be between 3 and 30 characters")
     private String name;
 
 }

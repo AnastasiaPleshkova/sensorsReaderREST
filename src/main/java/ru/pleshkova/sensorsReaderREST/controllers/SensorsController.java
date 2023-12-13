@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.pleshkova.sensorsReaderREST.dto.SensorDto;
 import ru.pleshkova.sensorsReaderREST.models.Sensor;
 import ru.pleshkova.sensorsReaderREST.services.SensorService;
-import ru.pleshkova.sensorsReaderREST.util.SensorErrorResponse;
+import ru.pleshkova.sensorsReaderREST.util.ErrorResponse;
 import ru.pleshkova.sensorsReaderREST.util.SensorNotCreatedException;
 
 import java.util.List;
@@ -48,6 +48,7 @@ public class SensorsController {
             }
             throw new SensorNotCreatedException(sb.toString());
         }
+        // TODO NEED TO FIX, SHOULD BE UNIQUE NAME
         sensorService.save(convertToSensor(sensorDto));
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -61,8 +62,8 @@ public class SensorsController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<SensorErrorResponse> handleException (SensorNotCreatedException exception) {
-        SensorErrorResponse response = new SensorErrorResponse(exception.getMessage(),
+    private ResponseEntity<ErrorResponse> handleException (SensorNotCreatedException exception) {
+        ErrorResponse response = new ErrorResponse(exception.getMessage(),
                 System.currentTimeMillis());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
