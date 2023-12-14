@@ -1,5 +1,6 @@
 # SencorsReaderREST App
 is REST API app. It recieves data from sencors and save it to database. 
+Technical specifications for the project are available at 
 
 
 ![Project screenshot](in process)

@@ -28,8 +28,8 @@ public class SensorService {
         return sensorRepository.findById(id).orElseThrow(NotFoundSensorException::new);
     }
 
-    public Sensor findByName(String name){
-        return sensorRepository.findByName(name).orElseThrow(NotFoundSensorException::new);
+    public Optional<Sensor> findByName(String name){
+        return sensorRepository.findByName(name);
     }
 
     @Transactional

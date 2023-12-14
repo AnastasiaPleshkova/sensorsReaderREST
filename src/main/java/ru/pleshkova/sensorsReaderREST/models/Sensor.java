@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "sensors")
 @NoArgsConstructor
-public class Sensor {  // TODO ADDED UNIQUE VALIDATION
+public class Sensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

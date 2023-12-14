@@ -13,6 +13,7 @@ import ru.pleshkova.sensorsReaderREST.models.Sensor;
 import ru.pleshkova.sensorsReaderREST.services.SensorService;
 import ru.pleshkova.sensorsReaderREST.util.ErrorResponse;
 import ru.pleshkova.sensorsReaderREST.util.SensorNotCreatedException;
+import ru.pleshkova.sensorsReaderREST.util.SensorDtoValidator;
 
 import java.util.List;
 
@@ -21,10 +22,12 @@ import java.util.List;
 public class SensorsController {
 
     private final SensorService sensorService;
+    private final SensorDtoValidator sensorDtoValidator;
     private final ModelMapper mapper;
     @Autowired
-    public SensorsController(SensorService sensorService, ModelMapper mapper) {
+    public SensorsController(SensorService sensorService, SensorDtoValidator sensorDtoValidator, ModelMapper mapper) {
         this.sensorService = sensorService;
+        this.sensorDtoValidator = sensorDtoValidator;
         this.mapper = mapper;
     }
 
@@ -40,6 +43,7 @@ public class SensorsController {
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> registration(@RequestBody @Valid SensorDto sensorDto, BindingResult bindingResult) {
+        sensorDtoValidator.validate(sensorDto, bindingResult);
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -48,7 +52,6 @@ public class SensorsController {
             }
             throw new SensorNotCreatedException(sb.toString());
         }
-        // TODO NEED TO FIX, SHOULD BE UNIQUE NAME
         sensorService.save(convertToSensor(sensorDto));
         return ResponseEntity.ok(HttpStatus.OK);
     }

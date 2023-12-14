@@ -68,7 +68,7 @@ public class MeasurementsController {
 
     private Measurement convertToMeasurement(MeasurementDto measurementDto) {
         Measurement measurement = mapper.map(measurementDto, Measurement.class);
-        measurement.setSensor(sensorService.findByName(measurementDto.getSensor().getName()));
+        measurement.setSensor(sensorService.findByName(measurementDto.getSensor().getName()).orElseThrow(NotFoundSensorException::new));
         return measurement;
     }
 
