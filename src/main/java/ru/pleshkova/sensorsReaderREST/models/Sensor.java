@@ -2,6 +2,7 @@ package ru.pleshkova.sensorsReaderREST.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Sensor {
     private Long id;
 
     @Size(min = 3, max = 30, message = "should be between 3 and 30 characters")
+    @NotNull
     @Getter
     @Setter
     private String name;

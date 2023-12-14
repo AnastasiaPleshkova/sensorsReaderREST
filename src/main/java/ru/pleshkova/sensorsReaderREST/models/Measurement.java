@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,11 @@ public class Measurement {   // TODO ADDED VALIDATION
 
     @Min(value = -100, message = "can't be less than -100")
     @Max(value = 100, message = "can't be more than 100")
+    @NotNull(message = "can't be empty")
     @Column(name = "temperature")
     private Integer value;   // TODO SHOULD BE DOUBLE
 
-
+    @NotNull(message = "can't be empty")
     @Column(name = "raining")
     private Boolean raining;
     @ManyToOne
